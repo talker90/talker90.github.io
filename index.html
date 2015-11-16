@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Invasive Appetites</title>
+
+<!-- local -->
+
+<script src="jquery.js"></script>
+
+<!-- CDN -->
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!--[if lt IE 7]>
+ <script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE7.js" 
+ type="text/javascript">
+ </script>
+<![endif]-->
+
+<style>
+
+/* these are my catch-alls */
+* {
+	margin:0;
+	padding:0;
+	box-sizing: border-box; 
+}
+
+main {
+	display: block; /* this is to make sure main tag is universally */
+}
+
+.clear-float {
+	clear:both;
+}
+
+/* end catch-alls */
+
+
+/*Charlie's 12 Column Grid*/
+/**  if horizontal centering, have to manually enter % width in div inside of [class*="col-"] **/
+
+header, nav, main, section, article, aside, footer, details,
+summary, mark {
+	position: relative;
+} /* allows for vertical centering */
+
+[class*="col-"] {
+	padding: -0.5px;
+	border: 0.5px transparent solid;
+	margin-left: -2.5px;
+	margin-right: -2.5px; /* to correct shifting from removing float:left; */
+}
+
+.row {
+	width:100vw;
+	
+	white-space:nowrap;
+	position:absolute;
+	top:0;right:0;left:0;bottom:0;
+	text-align:center; 
+} 
+
+.row:before, [class*="col-"] {
+	display:inline-block;
+	vertical-align:middle;
+	white-space:normal; 
+	text-align:left; 
+}
+
+.row:before {
+	content:"";
+	margin-right:-.3em;
+	height:100%;
+}
+
+.row:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+[class*="col-"] > div {
+	margin:0 auto;
+}
+
+#ruler {
+	display: none;
+} /* this is just something I use to look at the grid sizing */
+
+	/* for mobile */
+[class*="col-"] {
+	width: 100vw;
+}
+
+@media only screen and (min-width: 600px) {
+	/* For tablets: */
+	.col-12 {width: 100vw;} 
+	.col-11 {width: 91.66666667vw;} 
+	.col-10 {width: 83.33333333vw;}
+	.col-9 {width: 75vw;}
+	.col-8 {width: 66.66666667vw;}
+	.col-7 {width: 58.33333333vw;}
+	.col-6 {width: 50vw;}
+	.col-5 {width: 41.66666667vw;}
+	.col-4 {width: 33.33333333vw;}
+	.col-3 {width: 25vw;}
+	.col-2 {width: 16.66666667vw;}
+	.col-1 {width: 8.33333333vw;}
+}
+
+@media only screen and (min-width: 768px) {
+	/* For desktop: */
+	.col-12 {width: 100vw;} 
+	.col-11 {width: 91.66666667vw;} 
+	.col-10 {width: 83.33333333vw;}
+	.col-9 {width: 75vw;}
+	.col-8 {width: 66.66666667vw;}
+	.col-7 {width: 58.33333333vw;}
+	.col-6 {width: 50vw;}
+	.col-5 {width: 41.66666667vw;}
+	.col-4 {width: 33.33333333vw;}
+	.col-3 {width: 25vw;}
+	.col-2 {width: 16.66666667vw;}
+	.col-1 {width: 8.33333333vw;}
+}
+/* end 12 grid */
+
+* {
+    font-family: 'Trebuchet MS', Verdana, 'Geneva', Arial, sans-serif;
+    color:#989898; /* grey */
+    font-weight: 100;
+}
+
+input[id="hamburger"] {
+	display: none;
+}
+
+@media only screen and (min-width:0) and (max-width:568px) {
+
+	nav ~ nav {
+		display: none !important;
+	}
+	
+	header {
+		padding-top: 0;
+	}
+
+	label[for="hamburger"] {
+		font-size: 5rem; /* fallback */
+		font-size: 10vmin;
+		display: block !important;
+		float:right;
+		padding-right:2rem;
+		padding-right:4vw;
+	}
+	
+	label[for="hamburger"] + nav li {
+		font-size: 2rem; /* fallback */
+		font-size: 4vmin;
+	}
+	
+	label[for="hamburger"] + nav {
+		overflow:hidden;
+		height:0;
+		-webkit-transition:max-height 500ms ease;
+		-moz-transition:max-height 500ms ease;
+		-o-transition:max-height 500ms ease;
+		transition:max-height 500ms ease;
+	}
+	
+	input[id="hamburger"]:checked ~ nav {
+		height:auto;
+	}
+}
+	
+@media only screen and (min-width:569px) {
+
+	header {
+		padding-top: 5vh;
+	}
+	
+	label[for="hamburger"], nav:first-of-type  {
+		display: none !important;
+	}
+	
+	nav ~ nav {
+		display: block !important;
+	}
+}
+
+
+/* tricky stuff to make letters strech across screen. see: http://stackoverflow.com/questions/6865194/fluid-width-with-equally-spaced-divs */
+header {
+	width:100vw;
+	text-align: justify;
+	-ms-text-justify: distribute-all-lines;
+	text-justify: distribute-all-lines;
+}
+
+header div {
+	vertical-align: top;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+}
+
+.stretch {
+	width: 100%;
+	display: inline-block;
+	font-size: 0;
+	line-height: 0;
+}
+/* end tricky stuff */
+
+header {
+	padding-left: 10vw;
+	padding-right: 10vw;
+	padding-bottom: 0;
+} /* padding-top and padding-left in hamburger @media query */
+
+header div {
+	color:#242423; /* dark grey */
+	font-size: 3.5rem; /* fall-back */
+	font-size: 6vw;
+} 
+
+nav {
+	width: 100vw;
+}
+
+nav ul {
+	list-style-type: none;
+	text-align: center;
+}
+
+nav li {
+	font-size: 1rem; /* fallback */
+	font-size: 2.5vmin;
+}
+
+nav a, label[for="travel"] {
+	text-decoration: none;
+	min-height: 48px; /* size of a finger-tip */
+	min-width: 48px; /* size of a finger-tip */
+}
+
+a:link {
+}
+
+nav a:visited {
+	color:#989898; /* grey */
+}
+
+nav a:hover {
+	color:black;
+}
+
+nav a:active {
+	color:black;
+}
+
+nav a:focus {
+	color:black;
+}
+
+.active {
+	color:#242423; /* dark grey */
+}
+
+nav li li a {
+	color: black; /* dark grey */
+}
+
+nav > ul > li {
+	display: inline;
+	padding-right: 40px; /* size of a finger-tip */
+}
+
+nav > ul > li:last-of-type {
+	padding-right: 0;
+}
+
+/* for dropdown */    
+nav li ul {
+	position:absolute;
+	z-index:1; /* just in case */
+	text-align: left;
+	background: #989898; /* grey */
+	left: 27rem; /* fallback */
+	left: 45vw; /* fallback */
+	left:calc(50vw - (((31.8211vw + 38.9646vh)/2)/4) );
+}
+
+input[id="travel"] {
+	display: none;
+}
+
+input[id="travel"]:checked ~ ul li {
+	overflow:hidden;
+	max-height:0;
+	-webkit-transition:max-height 500ms ease;
+	-moz-transition:max-height 500ms ease;
+	-o-transition:max-height 500ms ease;
+	transition:max-height 500ms ease;
+}
+	
+input[id="travel"] ~ ul li {
+	height:auto;
+}
+
+out nav ul > li:link {}
+
+out nav ul > li:visited {}
+
+out nav ul > li:hover li {
+	max-height: 150rem; /* fallback */
+	max-height:100vh;
+}
+
+out nav ul > li:active li { 
+	max-height: 150rem; /* fallback */
+	max-height:100vh;
+}
+
+out nav ul > li:focus li {
+	max-height: 150rem; /* fallback */
+	max-height:100vh;
+}
+
+/*slider*/
+section {
+	overflow:hidden;
+	width:100vw;
+	height:70vh;
+}
+
+section a {
+	text-decoration: none;
+}
+
+section ul {
+	width:calc(100vw*4);
+}
+
+section li {
+	list-style-type: none;
+	display: inline;
+	float: left;
+}
+
+[id^="slide-"] {
+	width: 100vw;
+	height: 70vh;
+	z-index: -1;
+}
+
+/* note iPhone 320x568 2x, iPad 768x1054 2x */
+@media only screen and (max-width:320px) {
+	#slide-1 {
+		background: url('image_1_568_224.jpg') no-repeat center center;
+		background: url('image_1_320_397.jpg') no-repeat center center;
+		background-size: cover;
+	}
+	#slide-2 {
+		background: url('image_2_568_224.jpg') no-repeat center center;
+		background: url('image_2_320_397.jpg') no-repeat center center;
+		background-size: cover;
+	}
+	#slide-3 {
+		background: url('image_3_568_224.jpg') no-repeat center center;
+		background: url('image_3_320_397.jpg') no-repeat center center;
+		background-size: cover;
+	}
+} /* listed two each time to try and force devices to download images for portrait and landscape so doesn't have to reload when rotated */
+
+@media only screen and (min-resolution:192dpi) and (max-width:320px), only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width:320px) {
+	#slide-1 {
+		background: url('image_1_1136_448.jpg') no-repeat center center;
+		background: url('image_1_640_795.jpg') no-repeat center center;
+		background-size: cover;
+	}
+	#slide-2 {
+		background: url('image_2_1136_448.jpg') no-repeat center center;
+		background: url('image_2_640_795.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-3 {
+		background: url('image_3_1136_448.jpg') no-repeat center center;
+		background: url('image_3_640_795.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+}
+
+@media only screen and (min-width:321px) {
+	#slide-1 {
+		background: url('image_1_568_224.jpg') no-repeat center center;
+		background: url('image_1_568_224.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-2 {
+		background: url('image_2_568_224.jpg') no-repeat center center;
+		background: url('image_2_568_224.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-3 {
+		background: url('image_3_568_224.jpg') no-repeat center center;
+		background: url('image_3_568_224.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+}
+
+@media only screen and (min-resolution:192dpi) and (min-width:321px), only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width:321px) {
+	#slide-1 {
+		background: url('image_1_640_795.jpg') no-repeat center center;
+		background: url('image_1_1136_448.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-2 {
+		background: url('image_2_640_795.jpg') no-repeat center center;
+		background: url('image_2_1136_448.jpg') no-repeat center center;
+		background-size: cover;
+	}
+	#slide-3 {
+		background: url('image_3_640_795.jpg') no-repeat center center;
+		background: url('image_3_1136_448.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+}
+
+@media only screen and (min-width:569px) {
+	#slide-1 {
+		background: url('image_1_1054_538.jpg') no-repeat center center;
+		background: url('image_1_768_738.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-2 {
+		background: url('image_2_1054_538.jpg') no-repeat center center;
+		background: url('image_2_768_738.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-3 {
+		background: url('image_3_1054_538.jpg') no-repeat center center;
+		background: url('image_3_768_738.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+}
+
+@media only screen and (min-resolution:192dpi) and (min-width:569px), only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width:569px) {
+	#slide-1 {
+		background: url('image_1_2108_1075.jpg') no-repeat center center;
+		background: url('image_1_1536_1476.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-2 {
+		background: url('image_2_2108_1075.jpg') no-repeat center center;
+		background: url('image_2_1536_1476.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-3 {
+		background: url('image_3_2108_1075.jpg') no-repeat center center;
+		background: url('image_3_1536_1476.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+}
+
+@media only screen and (min-width:769px) {
+	#slide-1 {
+		background: url('image_1_768_738.jpg') no-repeat center center;
+		background: url('image_1_1054_538.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-2 {
+		background: url('image_2_768_738.jpg') no-repeat center center;
+		background: url('image_2_1054_538.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-3 {
+		background: url('image_3_768_738.jpg') no-repeat center center;
+		background: url('image_3_1054_538.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+}
+
+@media only screen and (min-resolution:192dpi) and (min-width:769px), only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width:769px) {
+	#slide-1 {
+		background: url('image_1_1536_1476.jpg') no-repeat center center;
+		background: url('image_1_2108_1075.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-2 {
+		background: url('image_2_1536_1476.jpg') no-repeat center center;
+		background: url('image_2_2108_1075.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+	#slide-3 {
+		background: url('image_3_1536_1476.jpg') no-repeat center center;
+		background: url('image_3_2108_1075.jpg') no-repeat center center;
+		background-size: cover; 
+	}
+}
+
+figcaption {
+	text-align: center;
+	position: relative;
+	bottom: 35rem; /* fallback */
+	bottom: calc(52.5vh - 3rem/2); /* fallback */
+	bottom: calc(52.5vh - 8vmin/2);
+	color:white;
+	font-size: 3rem; /* fallback */
+	font-size: 8vmin;
+	z-index: 1;
+}
+
+#slide-3 + figcaption {
+	left: 4rem; /* fallback */
+	left: 8vmin;
+}
+
+@media only screen and (orientation:landscape) {
+	#slide-2 + figcaption {
+		bottom: 20rem; /* fallback */
+		left: 4rem; /* fallback */
+		bottom: 46vh;
+		left: 7vw;
+	}
+}
+
+@media only screen and (orientation:portrait) {
+	#slide-3 + figcaption {
+		left: 2rem; /* fallback */
+		left: 4vw;
+	}
+	#slide-2 + figcaption {
+		bottom: 24rem; /* fallback */
+		bottom: 40vh;
+	}
+}
+
+section > div > div > div {
+	background-color: transparent;
+	min-height: 40px; /* size of fingertip */
+	min-width: 40px; /* size of fingertip */
+	border-radius: 20px;
+	border: 1px solid #989898; /* grey */ /* fallback */
+	border: 0.1vmin solid #989898; /* grey */
+	float:left; 
+	margin-right: 40px; /* size of fingertip */
+}
+
+section > div > div > div:last-of-type {
+	margin-right: 0;
+}
+
+section > div > div {
+	position: relative;
+	margin: auto;
+	min-height:40px; /* size of fingertip */
+	width: 200px;
+	top: 20rem; /* fallback */
+	top: 60vh;
+}
+
+section > div {
+	position: absolute;
+	width: 100%;
+}
+
+.filled {
+	background-color:#989898; /* grey */
+}
+/*end slider*/
+
+footer {
+	height: 10vh;
+}
+
+footer p {
+	font-size: 1rem; /* fallback */
+	font-size: 2vmin;
+}
+
+footer p, #charlieLogo, #jillaLogo {
+	float:left;
+	margin-left: 0.5rem; /* fallback */
+	margin-left: 1vmin;
+}
+
+footer p:first-of-type {
+	margin-left:0;
+}
+
+#charlieLogo, #jillaLogo {
+	width: 1rem; /* fallback */
+	height: 1rem; /* fallback */
+	width: 2.5vmin; 
+	height: 2.5vmin;
+	border-radius: 0.5rem; /* fallback */
+	border-radius: calc(2.5vmin/2);
+	border: 1px solid #999; /**/
+}
+
+#charlieLogo {
+	background: url('charlie turtle logo by maxeem.jpg') no-repeat center;
+	background-size: contain;
+}
+
+#jillaLogo {
+	background: url('Jilla foraged meal logo by maxeem.jpg') no-repeat center;
+	background-size: contain;
+}
+
+.footer-content-left {
+	width: 75%;
+}
+
+/*
+header {background: red; border: 0.5px solid #999;}
+header div {background: orange; border: 0.5px solid #999;}
+nav {background: yellow; border: 0.5px solid #999;}
+main {background: green; border: 0.5px solid #999;}
+section {background: blue; border: 0.5px solid #999;}
+footer {background: purple; border: 0.5px solid #999;}
+[class*="col-"] {height:4vh;padding:-1px;border:1px red solid;}
+#ruler {display:block;}
+*/
+
+</style>
+
+
+</head>
+<body>
+
+<input type="checkbox" id="hamburger" />
+<label for="hamburger">&#x2630;</label>
+<nav>
+	<ul>
+		<li>
+			<a href="/public_html/index.html"><span class="active">HOME</span></a>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/colombia">COLOMBIA</a>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/ecuador">ECUADOR</a>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/quito-posts">FOOD</a>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/about">US</a>
+		</li>
+	</ul>
+</nav>
+
+<header>
+	<div>I</div>
+	<div>n</div>
+	<div>v</div>
+	<div>a</div>
+	<div>s</div>
+	<div>i</div>
+	<div>v</div>
+	<div>e</div>
+	<div>&nbsp</div>  
+	<div>A</div> 
+	<div>p</div> 
+	<div>p</div> 
+	<div>e</div> 
+	<div>t</div> 
+	<div>i</div> 
+	<div>t</div>
+	<div>e</div> 
+	<div>s</div>
+	<span class="stretch"></span>
+</header>
+	
+<nav>
+	<ul>
+		<li>
+			<a href="/public_html/index.html"><span class="active">HOME</span></a>
+		</li>
+		<li>
+			<input type="checkbox" id="travel" checked="checked" />
+			<label for="travel">TRAVEL</label>
+			<ul>
+				<li>
+					<a href="http://www.invasiveappetites.wordpress.com/colombia">COLOMBIA</a>
+				</li>
+				<li>
+					<a href="http://www.invasiveappetites.wordpress.com/ecuador">ECUADOR</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/quito-posts">FOOD</a>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/about">US</a>
+		</li>
+	</ul>
+</nav>
+
+<section>
+	<ul>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/amazon-yasuni/">
+				<figure>
+					<div id="slide-1" role="img" aria-label="background image showing a large Amazonian mammal (the Tayra) in the tree-tops, the image is a link to the Yasuni page" ></div>
+					<figcaption>YASUNI</figcaption>
+				</figure>
+			</a>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/comuna-pomeya/">
+				<figure>
+					<div id="slide-2" role="img" aria-label="background image showing a simple raised home, the image is a link to the Pompeya page"></div>
+					<figcaption>COMUNIDAD POMPEYA</figcaption>
+				</figure>
+			</a>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/tena-2/">
+				<figure>
+					<div id="slide-3" role="img" aria-label="background image showing a skewer of roasted grub worms on a banana leaf, the image is a link to the Tena page"></div>
+					<figcaption>TENA</figcaption>
+				</figure>
+			</a>
+		</li>
+		<li>
+			<a href="http://www.invasiveappetites.wordpress.com/amazon-yasuni/">
+				<figure>
+					<div id="slide-1" role="img" aria-label=""></div>
+					<figcaption>YASUNI</figcaption>
+				</figure>
+			</a>
+		</li>
+	</ul>
+	<div>
+		<div>
+			<div class="dot filled"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+		</div>
+	</div>
+</section>
+
+<footer>
+	<div class="row">
+		<div class="col-8">
+			<div class="footer-content-left">
+				<p>Designed and Developed by</p>
+				<div id="jillaLogo" role="img" aria-label="background image showing a large Amazonian mammal (the Tayra), the image is a link to the Yasuni page"></div>
+				<p class="active">CharZilla Design</p>
+				<div id="charlieLogo"></div>
+			</div>
+		</div>
+		<div class="col-2"></div>
+		<div class="col-2">
+			<!-- social media icons goes here -->
+		</div>
+	</div>
+</footer>
+
+<div class="row" id="ruler" style="position:fixed;bottom:50vh;"><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div><div class="col-1" style="height:4vh;padding:-1px;border:1px red solid;"></div></div><!-- this is just something I use to measure my gridding with, it's set display:none; above -->
+
+
+<script>
+'use strict';
+
+$(document).ready(function () {
+
+// Initial inspiration for this slider design from http://www.youtube.com/watch?v=KkzVFB3Ba_o
+
+	//cache 
+    var $slider = $('section');
+    var $slideContainer = $slider.find('ul');
+    var $slides = $slider.find('li');
+    var $windowWidth = $slider.css('width');
+    var $windowWidthUnitless = $slider.width();
+    var $dot1 = $slider.find('.dot:first-of-type');
+    var $dot2 = $slider.find('.dot:nth-of-type(2)');
+    var $dot3 = $slider.find('.dot:last-of-type');
+    var $dots = $slider.find('section>div>div');
+    var interval;
+
+    //config
+    var width = $windowWidth;
+    var doubleWidth = $windowWidthUnitless * 2;
+    var animationSpeed = 1000;
+    var pause = 3000;
+    var currentSlide = 1;
+  
+    function startSlider() {
+        interval = setInterval(function() {
+            $slideContainer.animate({'margin-left': '-='+width}, animationSpeed, function() {
+                if (++currentSlide === $slides.length) {
+                    currentSlide = 1;
+                    $slideContainer.css('margin-left', 0);
+                }
+                $(window).on("orientationchange",function(){
+  					pauseSlider();
+  					currentSlide = 1;
+                    $slideContainer.css('margin-left', 0);
+                    $dot1.addClass('filled');
+					$dot2.removeClass('filled');
+					$dot3.removeClass('filled');
+					$windowWidth = $slider.css('width');
+    				$windowWidthUnitless = $slider.width();
+    				width = $windowWidth;
+    				doubleWidth = $windowWidthUnitless * 2;
+                    startSlider();
+				});
+				$(window).on('resize', function(){
+  					pauseSlider();
+  					currentSlide = 1;
+                    $slideContainer.css('margin-left', 0);
+                    $dot1.addClass('filled');
+					$dot2.removeClass('filled');
+					$dot3.removeClass('filled');
+					$windowWidth = $slider.css('width');
+    				$windowWidthUnitless = $slider.width();
+    				width = $windowWidth;
+    				doubleWidth = $windowWidthUnitless * 2;
+                    startSlider();
+				});
+                switch (currentSlide) {
+					case 2:
+						$dot1.toggleClass('filled');
+						$dot2.toggleClass('filled');
+						break;
+					case 3:
+						$dot2.toggleClass('filled');
+						$dot3.toggleClass('filled');
+						break;
+					case 4:
+						$dot3.toggleClass('filled');
+						$dot1.toggleClass('filled');
+						break;
+					default:
+						$dot1.addClass('filled');
+						$dot2.removeClass('filled');
+						$dot3.removeClass('filled');
+						break;
+				}
+            });
+        }, pause);
+    }
+    
+    function pauseSlider() {
+        clearInterval(interval);
+    }
+    
+    $slideContainer
+        .on('mouseenter', pauseSlider)
+        .on('mouseleave', startSlider);
+        
+    $($dots).on('click',"#dot-1",function() {
+    	currentSlide = 1;
+    	$slideContainer.css('margin-left', 0);
+    	$dot1.addClass('filled');
+		$dot2.removeClass('filled');
+		$dot3.removeClass('filled');
+		clearInterval(interval);
+    })
+    
+    $($dots).on('click',"#dot-2",function() {
+    	currentSlide = 2;
+    	$slideContainer.css('margin-left', '-' +width);
+    	$dot1.removeClass('filled');
+		$dot2.addClass('filled');
+		$dot3.removeClass('filled');
+		clearInterval(interval);
+    })
+    
+    $($dots).on('click',"#dot-3",function() {
+    	currentSlide = 3;
+    	$slideContainer.css('margin-left', "-" +doubleWidth +"px");
+    	$dot1.removeClass('filled');
+		$dot2.removeClass('filled');
+		$dot3.addClass('filled');
+		clearInterval(interval);
+    })
+
+    startSlider();
+
+});
+</script>
+
+
+<script>
+$(document).ready(function () {
+
+var $nav = $('nav');
+
+$($nav).on("dblclick",'label[for="travel"]',function(event) {
+	window.location.replace($(this).attr("http://www.invasiveappetites.wordpress.com/travel/"));
+});
+
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+{% if is_mobile % }
+  // Hides mobile browser's address bar when page is done loading.
+  window.addEventListener('load', function(e) {
+    setTimeout(function() { window.scrollTo(0, 1); }, 1);
+  }, false);
+{% endif % }
+
+});
+</script>
+
+<!-- this is so main tag is universally accepted -->
+<script>document.createElement('main');</script>
+</body>
+</html>
