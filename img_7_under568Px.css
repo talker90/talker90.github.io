@@ -1,0 +1,31 @@
+@media only screen and (-webkit-min-device-pixel-ratio: 3) and (max-width: 320px), only screen and (min--moz-device-pixel-ratio: 3) and (max-width: 320px), only screen and (-o-min-device-pixel-ratio: 3/1) and (max-width: 320px), only screen and (min-device-pixel-ratio: 3) and (max-width: 320px), only screen and (min-resolution: 288dpi) and (max-width: 320px), only screen and (min-resolution: 3dppx) and (max-width: 320px) { 
+	#slide-1 {
+		background: url('image_7_1280_1590.jpg') no-repeat center center;
+		background: url('image_7_1280_1590.webp') no-repeat center center;
+		background-size: cover; /* or contain */
+	}
+} 
+
+@media only screen and (-webkit-min-device-pixel-ratio: 4) and (max-width: 320px), only screen and (min--moz-device-pixel-ratio: 4) and (max-width: 320px), only screen and (-o-min-device-pixel-ratio: 4/1) and (max-width: 320px), only screen and (min-device-pixel-ratio: 4) and (max-width: 320px), only screen and (min-resolution: 384dpi) and (max-width: 320px), only screen and (min-resolution: 4dppx) and (max-width: 320px) { 
+	#slide-1 {
+		background: url('image_7_2560_627.jpg') no-repeat center center;
+		background: url('image_7_2560_627.webp') no-repeat center center;
+		background-size: cover; /* or contain */
+	}
+} 
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3) and (min-width: 321px), only screen and (min--moz-device-pixel-ratio: 3) and (min-width: 321px), only screen and (-o-min-device-pixel-ratio: 3/1) and (min-width: 321px), only screen and (min-device-pixel-ratio: 3) and (min-width: 321px), only screen and (min-resolution: 192dpi) and (min-width: 321px), only screen and (min-resolution: 3dppx) and (min-width: 321px) { 
+	#slide-1 {
+		background: url('image_7_2272_896.jpg') no-repeat center center;
+		background: url('image_7_2272_896.webp') no-repeat center center;
+		background-size: cover; /* or contain */
+	}
+} 
+
+@media only screen and (-webkit-min-device-pixel-ratio: 4) and (min-width: 321px), only screen and (min--moz-device-pixel-ratio: 4) and (min-width: 321px), only screen and (-o-min-device-pixel-ratio: 4/1) and (min-width: 321px), only screen and (min-device-pixel-ratio: 4) and (min-width: 321px), only screen and (min-resolution: 384dpi) and (min-width: 321px), only screen and (min-resolution: 4dppx) and (min-width: 321px) { 
+	#slide-1 {
+		background: url('image_7_4544_1792.jpg') no-repeat center center;
+		background: url('image_7_4544_1792.webp') no-repeat center center;
+		background-size: cover; /* or contain */
+	}
+}

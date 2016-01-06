@@ -1,0 +1,23 @@
+@media only screen and (min-width: 1367px) {
+	#slide-1 {
+		background: url('image_7_1920_756.jpg') no-repeat center center;
+		background: url('image_7_1920_756.webp') no-repeat center center;
+		background-size: cover; /* or contain */
+	}
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 1367px), only screen and (min--moz-device-pixel-ratio: 2) and (min-width: 1367px), only screen and (-o-min-device-pixel-ratio: 2/1) and (min-width: 1367px), only screen and (min-device-pixel-ratio: 2) and (min-width: 1367px), only screen and (min-resolution: 192dpi) and (min-width: 1367px), only screen and (min-resolution: 2dppx) and (min-width: 1367px) { 
+	#slide-1 {
+		background: url('image_7_3840_1512.jpg') no-repeat center center;
+		background: url('image_7_3840_1512.webp') no-repeat center center;
+		background-size: cover; /* or contain */
+	}
+} 
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3) and (min-width: 1367px), only screen and (min--moz-device-pixel-ratio: 3) and (min-width: 1367px), only screen and (-o-min-device-pixel-ratio: 3/1) and (min-width: 1367px), only screen and (min-device-pixel-ratio: 3) and (min-width: 1367px), only screen and (min-resolution: 288dpi) and (min-width: 1367px), only screen and (min-resolution: 3dppx) and (min-width: 1367px) { 
+	#slide-1 {
+		background: url('image_7_5760_2268.jpg') no-repeat center center;
+		background: url('image_7_5760_2268.webp') no-repeat center center;
+		background-size: cover; /* or contain */
+	}
+}

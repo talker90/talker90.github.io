@@ -1,0 +1,7 @@
+@media only screen and (-webkit-min-device-pixel-ratio: 3) and (min-width: 1055px), only screen and (min--moz-device-pixel-ratio: 3) and (min-width: 1055px), only screen and (-o-min-device-pixel-ratio: 3/1) and (min-width: 1055px), only screen and (min-device-pixel-ratio: 3) and (min-width: 1055px), only screen and (min-resolution: 288dpi) and (min-width: 1055px), only screen and (min-resolution: 3dppx) and (min-width: 1055px) { 
+	#slide-1 {
+		background: url('image_7_5464_2150.jpg') no-repeat center center;
+		background: url('image_7_5464_2150.webp') no-repeat center center;
+		background-size: cover; /* or contain */
+	}
+}
