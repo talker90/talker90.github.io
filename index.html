@@ -269,7 +269,7 @@ nav li {
 	font-size: 2.5vmin;
 }
 
-nav a, label[for="travel"] {
+nav a, label[for="travel"], label[for="us"] {
 	text-decoration: none;
 	min-height: 48px; /* size of a finger-tip */
 	min-width: 48px; /* size of a finger-tip */
@@ -322,11 +322,11 @@ nav li ul {
 	left:calc(50vw - (((31.8211vw + 38.9646vh)/2)/4) );
 }
 
-input[id="travel"] {
+input[id="travel"], input[id="us"] {
 	display: none;
 }
 
-input[id="travel"]:checked ~ ul li {
+input[id="travel"]:checked ~ ul li, input[id="us"]:checked ~ ul li {
 	overflow:hidden;
 	max-height:0;
 	-webkit-transition:max-height 500ms ease;
@@ -335,7 +335,7 @@ input[id="travel"]:checked ~ ul li {
 	transition:max-height 500ms ease;
 }
 	
-input[id="travel"] ~ ul li {
+input[id="travel"] ~ ul li, input[id="us"] ~ ul li {
 	height:auto;
 }
 
@@ -731,7 +731,16 @@ footer {background: purple; border: 0.5px solid #999;}
 			<a href="http://www.invasiveappetites.wordpress.com/quito-posts">FOOD</a>
 		</li>
 		<li>
-			<a href="http://www.invasiveappetites.wordpress.com/about">US</a>
+			<input type="checkbox" id="us" checked="checked" />
+			<label for="us">US</label>
+			<ul>
+				<li>
+					<a href="http://www.invasiveappetites.wordpress.com/about">Us</a>
+				</li>
+				<li>
+					<a href="http://www.invasiveappetites.wordpress.com/a-christmas-letter-update">Christmas Letter</a>
+				</li>
+			</ul>
 		</li>
 	</ul>
 </nav>
